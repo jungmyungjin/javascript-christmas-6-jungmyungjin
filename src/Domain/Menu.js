@@ -26,6 +26,10 @@ class Menu {
     this.checkMenuExistence(target);
     return this.#menu[target].price;
   }
+  getMenuCategory(target) {
+    this.checkMenuExistence(target);
+    return this.#menu[target].category;
+  }
 }
 
 export default Menu;
