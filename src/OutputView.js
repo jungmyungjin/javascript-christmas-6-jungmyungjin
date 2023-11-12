@@ -5,6 +5,7 @@ const OutputView = {
     // ...
   },
   // ...
+  printGiftMenu(gift) {
 };
 
 export default OutputView;
