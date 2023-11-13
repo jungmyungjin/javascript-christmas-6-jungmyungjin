@@ -38,7 +38,8 @@ class PaymentStatement {
   BenefitDetails() {
     const christmasDiscount =
       this.#decemberBenefit.getDiscountAmountChristmasDDay();
-    const weeksDiscount = this.#decemberBenefit.getDiscountWeekdayOrWeekend();
+    const { weeksDiscount } =
+      this.#decemberBenefit.getDiscountWeekdayOrWeekend();
     const specialDiscount = this.#decemberBenefit.getDiscountSpecial();
     const giftPrice = this.#decemberBenefit.getGiveawayPrice();
     OutputView.printTotalDiscount({

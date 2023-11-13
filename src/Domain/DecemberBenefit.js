@@ -43,7 +43,7 @@ class DecemberBenefit {
         totalDiscount += discountAmountPerUnit * orderSheet[orderMenu];
       }
     }
-    return totalDiscount;
+    return { isWeekend, totalDiscount };
   }
   getDiscountSpecial() {
     const isSpecialDay = this.#startDate.some(
@@ -72,7 +72,8 @@ class DecemberBenefit {
   }
   getTotalBenefitPrice() {
     const christmasDDayBenefit = this.getDiscountAmountChristmasDDay();
-    const weekOrWeekendBenefit = this.getDiscountWeekdayOrWeekend();
+    const { totalDiscount: weekOrWeekendBenefit } =
+      this.getDiscountWeekdayOrWeekend();
     const specialBenefit = this.getDiscountSpecial();
     const giveawayPrice = this.getGiveawayPrice();
     return (
