@@ -1,5 +1,5 @@
-import DecemberBenefit from "./DecemberBenefit";
-import OutputView from "../Interface/OutputView";
+import DecemberBenefit from "./DecemberBenefit.js";
+import OutputView from "../Interface/OutputView.js";
 class PaymentStatement {
   #order;
   #decemberBenefit;
@@ -26,7 +26,7 @@ class PaymentStatement {
   }
 
   TotalOrderAmount() {
-    const totalOrderAmount = this.orderInstance.TotalOrderAmount();
+    const totalOrderAmount = this.#order.getTotalOrderAmount();
     OutputView.printTotalOrderAmount(totalOrderAmount);
   }
 
@@ -36,17 +36,18 @@ class PaymentStatement {
   }
 
   BenefitDetails() {
-    const christmasDiscount =
-      this.#decemberBenefit.getDiscountAmountChristmasDDay();
-    const { weeksDiscount } =
+    const { isWeekend, totalWeekDiscount } =
       this.#decemberBenefit.getDiscountWeekdayOrWeekend();
-    const specialDiscount = this.#decemberBenefit.getDiscountSpecial();
-    const giftPrice = this.#decemberBenefit.getGiveawayPrice();
-    OutputView.printTotalDiscount({
-      christmasDiscount,
-      weeksDiscount,
-      specialDiscount,
-      giftPrice,
+    if (this.#decemberBenefit.getDiscountAmountChristmasDDay === 0) {
+      OutputView.printTotalDiscount();
+      return;
+    }
+    OutputView.printBenefitDetails({
+      "크리스마스 디데이 할인":
+        this.#decemberBenefit.getDiscountAmountChristmasDDay(),
+      [isWeekend === true ? "주말 할인" : "평일 할인"]: totalWeekDiscount,
+      "특별 할인": this.#decemberBenefit.getDiscountSpecial(),
+      "증정 이벤트": this.#decemberBenefit.getGiveawayPrice(),
     });
   }
 
@@ -56,12 +57,12 @@ class PaymentStatement {
   }
   FinalPayment() {
     const finalPayment =
-      this.orderInstance.TotalOrderAmount() -
-      this.#decemberBenefit.getTotalBenefitPrice();
+      this.#order.getTotalOrderAmount() -
+      this.#decemberBenefit.getTotalDiscountPrice();
     OutputView.printFinalPayment(finalPayment);
   }
   EventBadge() {
-    const totalOrderAmount = this.orderInstance.TotalOrderAmount();
+    const totalOrderAmount = this.#order.getTotalOrderAmount();
     const sortedKeys = Object.keys(this.#minimumBadgePurchase)
       .map(Number)
       .sort((a, b) => b - a);
