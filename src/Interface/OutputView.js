@@ -1,8 +1,11 @@
 import { Console } from "@woowacourse/mission-utils";
 const OutputView = {
-  printMenu() {
+  printMenu(orderSheet) {
     Console.print("<주문 메뉴>");
-    // ...
+    for (const menu in orderSheet) {
+      if (!orderSheet[menu]) continue;
+      Console.print(`${menu} - ${orderSheet[menu]}개`);
+    }
   },
   printPreviewPaymentStatement() {
     Console.print("12월 3일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!");
@@ -19,7 +22,7 @@ const OutputView = {
   printGiftMenu(giveaway) {
     Console.print("<증정 메뉴>");
     if (!giveaway) {
-      Console.print("없음");
+      Console.print("없음\n");
       return;
     }
     for (const gift in giveaway) {
@@ -30,7 +33,7 @@ const OutputView = {
   printBenefitDetails(benefits) {
     Console.print("<혜택 내역>");
     if (!benefits) {
-      Console.print("없음");
+      Console.print("없음\n");
       return;
     }
     for (const title in benefits) {
@@ -42,7 +45,7 @@ const OutputView = {
   printTotalDiscountAmount(totalDiscount) {
     Console.print("<총혜택 금액>");
     if (!totalDiscount) {
-      Console.print("없음");
+      Console.print("없음\n");
       return;
     }
     Console.print(`${totalDiscount.toLocaleString("ko-KR")}원`);
