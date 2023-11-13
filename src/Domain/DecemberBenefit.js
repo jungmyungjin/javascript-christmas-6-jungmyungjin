@@ -12,7 +12,7 @@ class DecemberBenefit {
     "2023-12-25",
     "2023-12-31",
   ];
-  #giftMenu = "샴페인";
+  #giftMenu = { 샴페인: 1 };
 
   constructor(orderInstance, day) {
     this.#menu = new Menu();
@@ -62,7 +62,11 @@ class DecemberBenefit {
   getGiveawayPrice() {
     const minimumPurchaseAmount = 120000;
     if (minimumPurchaseAmount <= this.#order.getTotalOrderAmount()) {
-      return this.#menu.getMenuPrice(this.#giftMenu);
+      let totalPrice = 0;
+      for (const gift in this.#giftMenu) {
+        totalPrice += this.#menu.getMenuPrice(gift) * this.#giftMenu[gift];
+      }
+      return totalPrice;
     }
     return 0;
   }
