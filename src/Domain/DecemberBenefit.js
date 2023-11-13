@@ -37,13 +37,13 @@ class DecemberBenefit {
     const discountAmountPerUnit = 2023;
     const discountCategory = isWeekend ? "main" : "dessert";
     const orderSheet = this.#order.getOrderSheet();
-    let totalDiscount = 0;
+    let totalWeekDiscount = 0;
     for (let orderMenu in orderSheet) {
       if (this.#menu.getMenuCategory(orderMenu) === discountCategory) {
-        totalDiscount += discountAmountPerUnit * orderSheet[orderMenu];
+        totalWeekDiscount += discountAmountPerUnit * orderSheet[orderMenu];
       }
     }
-    return { isWeekend, totalDiscount };
+    return { isWeekend, totalWeekDiscount };
   }
   getDiscountSpecial() {
     const isSpecialDay = this.#startDate.some(
@@ -72,16 +72,18 @@ class DecemberBenefit {
   }
   getTotalBenefitPrice() {
     const christmasDDayBenefit = this.getDiscountAmountChristmasDDay();
-    const { totalDiscount: weekOrWeekendBenefit } =
-      this.getDiscountWeekdayOrWeekend();
+    const { totalWeekDiscount } = this.getDiscountWeekdayOrWeekend();
     const specialBenefit = this.getDiscountSpecial();
     const giveawayPrice = this.getGiveawayPrice();
     return (
-      christmasDDayBenefit +
-      weekOrWeekendBenefit +
-      specialBenefit +
-      giveawayPrice
+      christmasDDayBenefit + totalWeekDiscount + specialBenefit + giveawayPrice
     );
+  }
+  getTotalDiscountPrice() {
+    const christmasDDayBenefit = this.getDiscountAmountChristmasDDay();
+    const { totalWeekDiscount } = this.getDiscountWeekdayOrWeekend();
+    const specialBenefit = this.getDiscountSpecial();
+    return christmasDDayBenefit + totalWeekDiscount + specialBenefit;
   }
 }
 
