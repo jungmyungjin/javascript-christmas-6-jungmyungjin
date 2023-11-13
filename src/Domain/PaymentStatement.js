@@ -38,8 +38,8 @@ class PaymentStatement {
   BenefitDetails() {
     const { isWeekend, totalWeekDiscount } =
       this.#decemberBenefit.getDiscountWeekdayOrWeekend();
-    if (this.#decemberBenefit.getDiscountAmountChristmasDDay === 0) {
-      OutputView.printTotalDiscount();
+    if (this.#decemberBenefit.getTotalBenefitPrice() === 0) {
+      OutputView.printBenefitDetails(null);
       return;
     }
     OutputView.printBenefitDetails({
