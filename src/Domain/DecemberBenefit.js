@@ -14,11 +14,10 @@ class DecemberBenefit {
   ];
   #giftMenu = { 샴페인: 1 };
 
-  constructor(orderInstance, day) {
+  constructor(orderInstance, date) {
     this.#menu = new Menu();
     this.#order = orderInstance;
-    const [year, monthIndex] = [2023, 11];
-    this.#date = new Date(Date.UTC(year, monthIndex, day));
+    this.#date = date;
   }
   getDiscountAmountChristmasDDay() {
     const [eventStartDate, eventEndDate] = [

@@ -10,22 +10,31 @@ class ValidationInput {
 
   constructor() {
     this.#menu = new Menu();
-    // this.#order = orderIns;
-    // 날짜 검증
-    // 주문 검증
   }
   ValidateDate(inputDay) {
+    // try {
     if (!IsNumber(inputDay) || !IsNumberInRange(parseInt(inputDay), 1, 31)) {
       throw Error("[ERROR] 유효하지 않은 날짜입니다. 다시 입력해 주세요.");
     }
+    // return true;
+    // } catch (error) {
+    //   Console.print(error.message);
+    //   return false;
+    // }
   }
   ValidateOrder(orderIns, inputOrder) {
+    // try {
     this.#order = orderIns;
     this.#ValidateOrderFromStringFormat(inputOrder);
     this.#ValidateOrderMenuAndCount();
     this.#validateOrderMenuCount();
     this.#validateOrderOnlyDrink();
     this.#validateMinimumAmountForBenefit();
+    return true;
+    // } catch (error) {
+    //   Console.print(error.message);
+    //   return false;
+    // }
   }
 
   #ValidateOrderFromStringFormat(inputOrder) {

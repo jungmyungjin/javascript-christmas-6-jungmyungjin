@@ -5,9 +5,9 @@ class PaymentStatement {
   #decemberBenefit;
   #minimumBadgePurchase = { 5000: "별", 10000: "트리", 20000: "산타" };
 
-  constructor(orderInstance, day) {
+  constructor(orderInstance, date) {
     this.#order = orderInstance;
-    this.#decemberBenefit = new DecemberBenefit(this.#order, day);
+    this.#decemberBenefit = new DecemberBenefit(this.#order, date);
   }
 
   printPaymentStatement() {
