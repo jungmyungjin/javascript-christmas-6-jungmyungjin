@@ -18,7 +18,7 @@ class Menu {
 
   checkMenuExistence(target) {
     if (!this.#menu[target]) {
-      throw new Error("[ERROR] 존재하지 않는 메뉴입니다.");
+      return false;
     }
     return true;
   }
