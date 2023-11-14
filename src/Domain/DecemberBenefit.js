@@ -5,12 +5,12 @@ class DecemberBenefit {
   #menu;
   #date;
   #startDate = [
-    "2023-12-03",
-    "2023-12-10",
-    "2023-12-17",
-    "2023-12-24",
-    "2023-12-25",
-    "2023-12-31",
+    [2023, 12, 3],
+    [2023, 12, 10],
+    [2023, 12, 17],
+    [2023, 12, 24],
+    [2023, 12, 25],
+    [2023, 12, 31],
   ];
   #giftMenu = { 샴페인: 1 };
 
@@ -21,14 +21,14 @@ class DecemberBenefit {
   }
   getDiscountAmountChristmasDDay() {
     const [eventStartDate, eventEndDate] = [
-      new Date("2023-12-1"),
-      new Date("2023-12-25"),
+      new Date(Date.UTC(2023, 12, 1)),
+      new Date(Date.UTC(2023, 12, 25)),
     ];
     if (eventEndDate < this.#date || this.#date < eventStartDate) return 0;
     const DDay = Math.floor(
       Math.abs(eventEndDate - this.#date) / (1000 * 3600 * 24)
     );
-    return 1000 + (24 - DDay) * 100;
+    return DDay;
   }
   getDiscountWeekdayOrWeekend() {
     const day = this.#date.getDay();
@@ -46,7 +46,8 @@ class DecemberBenefit {
   }
   getDiscountSpecial() {
     const isSpecialDay = this.#startDate.some(
-      (eventDay) => this.#date.getTime() === new Date(eventDay).getTime()
+      ([year, month, day]) =>
+        this.#date.getTime() === new Date(Date.UTC(year, month, day)).getTime()
     );
     if (isSpecialDay) return 1000;
     return 0;
