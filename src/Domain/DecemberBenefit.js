@@ -5,12 +5,12 @@ class DecemberBenefit {
   #menu;
   #date;
   #startDate = [
-    [2023, 12, 3],
-    [2023, 12, 10],
-    [2023, 12, 17],
-    [2023, 12, 24],
-    [2023, 12, 25],
-    [2023, 12, 31],
+    [2023, 11, 3],
+    [2023, 11, 10],
+    [2023, 11, 17],
+    [2023, 11, 24],
+    [2023, 11, 25],
+    [2023, 11, 31],
   ];
   #giftMenu = { 샴페인: 1 };
 
@@ -21,8 +21,8 @@ class DecemberBenefit {
   }
   getDiscountAmountChristmasDDay() {
     const [eventStartDate, eventEndDate] = [
-      new Date(Date.UTC(2023, 12, 1)),
-      new Date(Date.UTC(2023, 12, 25)),
+      new Date(Date.UTC(2023, 11, 1)),
+      new Date(Date.UTC(2023, 11, 25)),
     ];
     if (eventEndDate < this.#date || this.#date < eventStartDate) return 0;
     const DDay = Math.floor(
@@ -32,7 +32,7 @@ class DecemberBenefit {
   }
   getDiscountWeekdayOrWeekend() {
     const day = this.#date.getDay();
-    const isWeekend = 4 <= day && day <= 5;
+    const isWeekend = 5 <= day;
     const discountAmountPerUnit = 2023;
     const discountCategory = isWeekend ? "main" : "dessert";
     const orderSheet = this.#order.getOrderSheet();
