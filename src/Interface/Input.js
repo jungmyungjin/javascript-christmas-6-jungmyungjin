@@ -1,6 +1,6 @@
 import InputView from "./InputView.js";
 import OutputView from "./OutputView.js";
-import ValidationInput from "../ValidationInput.js";
+import ValidationInput from "./InputValidationInput.js";
 import Order from "../Domain/Order.js";
 import { Console } from "@woowacourse/mission-utils";
 
@@ -34,6 +34,7 @@ class Input {
     this.#date = new Date(Date.UTC(year, monthIndex, inputDay));
     return true;
   }
+
   async #inputOrder() {
     if (this.#order !== null) return true;
     const inputMenu = await InputView.readMenu();

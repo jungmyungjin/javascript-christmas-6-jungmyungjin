@@ -1,6 +1,6 @@
 import { Console } from "@woowacourse/mission-utils";
-import Menu from "./Domain/Menu.js";
-import { IsNumber, IsNumberInRange } from "./Utils.js";
+import Menu from "../Domain/Menu.js";
+import { IsNumber, IsNumberInRange } from "../Utils.js";
 
 class ValidationInput {
   #order;
@@ -17,7 +17,6 @@ class ValidationInput {
     }
   }
   ValidateOrder(orderIns, inputOrder) {
-    // try {
     this.#order = orderIns;
     this.#ValidateOrderFromStringFormat(inputOrder);
     this.#ValidateOrderMenuAndCount();
