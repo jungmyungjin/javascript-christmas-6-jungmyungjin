@@ -23,11 +23,11 @@ class Menu {
     return true;
   }
   getMenuPrice(target) {
-    this.checkMenuExistence(target);
+    if (!this.checkMenuExistence(target)) return 0;
     return this.#menu[target].price;
   }
   getMenuCategory(target) {
-    this.checkMenuExistence(target);
+    if (!this.checkMenuExistence(target)) return "";
     return this.#menu[target].category;
   }
 }
