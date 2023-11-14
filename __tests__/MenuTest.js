@@ -50,7 +50,6 @@ describe("Menu 클래스 테스트", () => {
     const menuEntries = Object.entries(menu);
 
     test.each(menuEntries)("존재 하는 메뉴의 가격 체크", (item) => {
-      console.log(item + "!!");
       expect(menuInstance.getMenuPrice(item)).toBe(menu[item].price);
     });
     test.each(NotExistMenu)("존재하지 않은 메뉴 체크", (item) => {
@@ -62,7 +61,6 @@ describe("Menu 클래스 테스트", () => {
     const menuEntries = Object.entries(menu);
 
     test.each(menuEntries)("존재 하는 메뉴의 카테고리 체크", (item) => {
-      console.log(item + "!!");
       expect(menuInstance.getMenuCategory(item)).toBe(menu[item].category);
     });
     test.each(NotExistMenu)("존재하지 않은 카테고리 체크", (item) => {
