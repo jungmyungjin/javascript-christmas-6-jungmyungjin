@@ -1,14 +1,9 @@
 import DecemberBenefit from "./DecemberBenefit.js";
 import OutputView from "../Interface/OutputView.js";
+import { MINIMUM_BADGE_PURCHASE } from "../Setting.js";
 class PaymentStatement {
   #order;
   #decemberBenefit;
-  #minimumBadgePurchase = {
-    0: "없음",
-    5000: "별",
-    10000: "트리",
-    20000: "산타",
-  };
 
   constructor(orderInstance, date) {
     this.#order = orderInstance;
@@ -68,13 +63,13 @@ class PaymentStatement {
   }
   EventBadge() {
     const totalBenefitPrice = this.#decemberBenefit.getTotalBenefitPrice();
-    const sortedKeys = Object.keys(this.#minimumBadgePurchase)
+    const sortedKeys = Object.keys(MINIMUM_BADGE_PURCHASE)
       .map(Number)
       .sort((a, b) => b - a);
     let badge = "";
     for (const amount of sortedKeys) {
       if (parseInt(amount) <= totalBenefitPrice) {
-        badge = this.#minimumBadgePurchase[amount];
+        badge = MINIMUM_BADGE_PURCHASE[amount];
         break;
       }
     }

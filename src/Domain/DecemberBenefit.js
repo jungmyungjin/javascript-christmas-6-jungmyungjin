@@ -1,19 +1,14 @@
 import Menu from "./Menu.js";
+import {
+  STAR_DATE,
+  GIFT_MENU,
+  MINIMUM_AMOUNT_FOR_DISCOUNT,
+} from "../Setting.js";
 
 class DecemberBenefit {
   #order;
   #menu;
   #date;
-  #startDate = [
-    [2023, 11, 3],
-    [2023, 11, 10],
-    [2023, 11, 17],
-    [2023, 11, 24],
-    [2023, 11, 25],
-    [2023, 11, 31],
-  ];
-  #giftMenu = { 샴페인: 1 };
-  #minAmountForDiscount = 10000;
 
   constructor(orderInstance, date) {
     this.#menu = new Menu();
@@ -21,7 +16,7 @@ class DecemberBenefit {
     this.#date = date;
   }
   getDiscountAmountChristmasDDay() {
-    if (this.#order.getTotalOrderAmount < this.#minAmountForDiscount) return 0;
+    if (this.#order.getTotalOrderAmount < MINIMUM_AMOUNT_FOR_DISCOUNT) return 0;
     const [eventStartDate, eventEndDate] = [
       new Date(Date.UTC(2023, 11, 1)),
       new Date(Date.UTC(2023, 11, 25)),
@@ -33,7 +28,7 @@ class DecemberBenefit {
     return 1000 + (24 - DDay) * 100;
   }
   getDiscountWeekdayOrWeekend() {
-    if (this.#order.getTotalOrderAmount < this.#minAmountForDiscount) return 0;
+    if (this.#order.getTotalOrderAmount < MINIMUM_AMOUNT_FOR_DISCOUNT) return 0;
     const day = this.#date.getDay();
     const isWeekend = 5 <= day;
     const discountAmountPerUnit = 2023;
@@ -48,8 +43,8 @@ class DecemberBenefit {
     return { isWeekend, totalWeekDiscount };
   }
   getDiscountSpecial() {
-    if (this.#order.getTotalOrderAmount < this.#minAmountForDiscount) return 0;
-    const isSpecialDay = this.#startDate.some(
+    if (this.#order.getTotalOrderAmount < MINIMUM_AMOUNT_FOR_DISCOUNT) return 0;
+    const isSpecialDay = STAR_DATE.some(
       ([year, month, day]) =>
         this.#date.getTime() === new Date(Date.UTC(year, month, day)).getTime()
     );
@@ -57,27 +52,27 @@ class DecemberBenefit {
     return 0;
   }
   getGiveaway() {
-    if (this.#order.getTotalOrderAmount < this.#minAmountForDiscount) return 0;
+    if (this.#order.getTotalOrderAmount < MINIMUM_AMOUNT_FOR_DISCOUNT) return 0;
     const minimumPurchaseAmount = 120000;
     if (minimumPurchaseAmount <= this.#order.getTotalOrderAmount()) {
-      return this.#giftMenu;
+      return GIFT_MENU;
     }
     return 0;
   }
   getGiveawayPrice() {
-    if (this.#order.getTotalOrderAmount < this.#minAmountForDiscount) return 0;
+    if (this.#order.getTotalOrderAmount < MINIMUM_AMOUNT_FOR_DISCOUNT) return 0;
     const minimumPurchaseAmount = 120000;
     if (minimumPurchaseAmount <= this.#order.getTotalOrderAmount()) {
       let totalPrice = 0;
-      for (const gift in this.#giftMenu) {
-        totalPrice += this.#menu.getMenuPrice(gift) * this.#giftMenu[gift];
+      for (const gift in GIFT_MENU) {
+        totalPrice += this.#menu.getMenuPrice(gift) * GIFT_MENU[gift];
       }
       return totalPrice;
     }
     return 0;
   }
   getTotalBenefitPrice() {
-    if (this.#order.getTotalOrderAmount < this.#minAmountForDiscount) return 0;
+    if (this.#order.getTotalOrderAmount < MINIMUM_AMOUNT_FOR_DISCOUNT) return 0;
     const christmasDDayBenefit = this.getDiscountAmountChristmasDDay();
     const { totalWeekDiscount } = this.getDiscountWeekdayOrWeekend();
     const specialBenefit = this.getDiscountSpecial();
@@ -87,7 +82,7 @@ class DecemberBenefit {
     );
   }
   getTotalDiscountPrice() {
-    if (this.#order.getTotalOrderAmount < this.#minAmountForDiscount) return 0;
+    if (this.#order.getTotalOrderAmount < MINIMUM_AMOUNT_FOR_DISCOUNT) return 0;
     const christmasDDayBenefit = this.getDiscountAmountChristmasDDay();
     const { totalWeekDiscount } = this.getDiscountWeekdayOrWeekend();
     const specialBenefit = this.getDiscountSpecial();

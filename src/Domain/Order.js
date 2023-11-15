@@ -9,7 +9,6 @@ class Order {
     this.setOrderFromString(stringOrder);
   }
 
-  // 주문 내용을 읽어오는 함수
   setOrderFromString(stringOrder) {
     const parseRegex = /([^\-,]+)-([0-9]+)/g;
     const matches = [...stringOrder.matchAll(parseRegex)];

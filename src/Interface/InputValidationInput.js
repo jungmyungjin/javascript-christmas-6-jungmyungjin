@@ -1,12 +1,11 @@
 import { Console } from "@woowacourse/mission-utils";
 import Menu from "../Domain/Menu.js";
 import { IsNumber, IsNumberInRange } from "../Utils.js";
+import { ORDER_LIMIT, MINIMUM_AMOUNT_FOR_BENEFIT } from "../Setting.js";
 
 class ValidationInput {
   #order;
   #menu = {};
-  #orderLimit = 20;
-  #minimumAmountForBenefit = 10000;
 
   constructor() {
     this.#menu = new Menu();
@@ -47,9 +46,9 @@ class ValidationInput {
     for (let menu in orderSheet) {
       menuCount += orderSheet[menu];
     }
-    if (this.#orderLimit < menuCount)
+    if (ORDER_LIMIT < menuCount)
       throw new Error(
-        `[ERROR] 한번에 주문 가능한 수량은 ${this.#orderLimit}개 입니다.`
+        `[ERROR] 한번에 주문 가능한 수량은 ${ORDER_LIMIT}개 입니다.`
       );
   }
 
@@ -69,9 +68,9 @@ class ValidationInput {
 
   #validateMinimumAmountForBenefit() {
     const totalOrderAmount = this.#order.getTotalOrderAmount();
-    if (totalOrderAmount <= this.#minimumAmountForBenefit) {
+    if (totalOrderAmount <= MINIMUM_AMOUNT_FOR_BENEFIT) {
       Console.print(
-        `12월 이벤트 혜택은 총 주문 금액 ${this.#minimumAmountForBenefit.toLocaleString(
+        `12월 이벤트 혜택은 총 주문 금액 ${MINIMUM_AMOUNT_FOR_BENEFIT.toLocaleString(
           "ko-KR"
         )}원 이상 부터 적용됩니다.`
       );
