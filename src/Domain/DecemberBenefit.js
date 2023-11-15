@@ -28,7 +28,7 @@ class DecemberBenefit {
     const DDay = Math.floor(
       Math.abs(eventEndDate - this.#date) / (1000 * 3600 * 24)
     );
-    return DDay;
+    return 1000 + (24 - DDay) * 100;
   }
   getDiscountWeekdayOrWeekend() {
     const day = this.#date.getDay();
