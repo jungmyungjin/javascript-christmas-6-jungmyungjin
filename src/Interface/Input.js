@@ -21,7 +21,7 @@ class Input {
         if (this.#date && this.#order) break;
       } catch (error) {
         Console.print(error.message);
-        break;
+        continue;
       }
     }
   }
