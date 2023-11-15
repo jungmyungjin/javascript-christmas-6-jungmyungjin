@@ -3,7 +3,12 @@ import OutputView from "../Interface/OutputView.js";
 class PaymentStatement {
   #order;
   #decemberBenefit;
-  #minimumBadgePurchase = { 5000: "별", 10000: "트리", 20000: "산타" };
+  #minimumBadgePurchase = {
+    0: "없음",
+    5000: "별",
+    10000: "트리",
+    20000: "산타",
+  };
 
   constructor(orderInstance, date) {
     this.#order = orderInstance;
@@ -62,13 +67,13 @@ class PaymentStatement {
     OutputView.printFinalPayment(finalPayment);
   }
   EventBadge() {
-    const totalOrderAmount = this.#order.getTotalOrderAmount();
+    const totalBenefitPrice = this.#decemberBenefit.getTotalBenefitPrice();
     const sortedKeys = Object.keys(this.#minimumBadgePurchase)
       .map(Number)
       .sort((a, b) => b - a);
     let badge = "";
     for (const amount of sortedKeys) {
-      if (parseInt(amount) <= totalOrderAmount) {
+      if (parseInt(amount) <= totalBenefitPrice) {
         badge = this.#minimumBadgePurchase[amount];
         break;
       }
