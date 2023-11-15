@@ -48,10 +48,6 @@ const OutputView = {
   },
   printTotalDiscountAmount(totalDiscount) {
     Console.print("<총혜택 금액>");
-    if (!totalDiscount) {
-      Console.print("없음\n");
-      return;
-    }
     Console.print(`${totalDiscount.toLocaleString("ko-KR")}원\n`);
   },
   printFinalPayment(finalPayment) {
