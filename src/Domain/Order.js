@@ -2,7 +2,7 @@ import Menu from "./Menu.js";
 
 class Order {
   #menu;
-  #OrderSheet = {};
+  #orderSheet = {};
 
   constructor(stringOrder) {
     this.#menu = new Menu();
@@ -15,20 +15,21 @@ class Order {
     const matches = [...stringOrder.matchAll(parseRegex)];
     for (const match of matches) {
       const [orderMenu, orderCount] = [match[1], parseInt(match[2])];
-      this.#OrderSheet[orderMenu] = orderCount;
+      this.#orderSheet[orderMenu] = orderCount;
     }
   }
+
   getOrderSheet() {
-    return this.#OrderSheet;
+    return this.#orderSheet;
   }
 
   getTotalOrderAmount() {
-    if (!this.#OrderSheet) return 0;
+    if (!this.#orderSheet) return 0;
     let totalAmount = 0;
-    for (let orderMenu in this.#OrderSheet) {
+    for (let orderMenu in this.#orderSheet) {
       totalAmount =
         totalAmount +
-        this.#menu.getMenuPrice(orderMenu) * this.#OrderSheet[orderMenu];
+        this.#menu.getMenuPrice(orderMenu) * this.#orderSheet[orderMenu];
     }
     return totalAmount;
   }
